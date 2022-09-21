@@ -1,7 +1,7 @@
 <?php
-include("model.php");
-include("modeloffice.php");
-include("modelrelasi.php");
+include_once("model.php");
+include_once("modeloffice.php");
+include_once("modelrelasi.php");
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
