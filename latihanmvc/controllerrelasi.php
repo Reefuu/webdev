@@ -27,4 +27,13 @@ function indexRelasi(){
 function deleteRelasi($id){
     unset($_SESSION['listrelasi'][$id]);
 }
+function editRelasiKar($namalama){
+    foreach(indexRelasi() as $index => $relasi){
+        if($namalama == $relasi->nama){
+            $relasi->nama = $_POST['nama'];
+            $relasi->nama = $_POST['jabatan'];
+            $relasi->nama = $_POST['usia'];
+        }
+    }
+}
 ?>

@@ -24,9 +24,11 @@ if (isset($_GET['delete'])) {
     }
     header("Location: view.php");
 }
-if(isset($_GET['submitedit'])){
+if(isset($_POST['submitedit'])){
     $id = $_POST['idKar'];
     editKar($id);
+    $nama = $_POST['namalama'];
+    editRelasiKar($nama);
 }
 ?>
 
@@ -154,6 +156,8 @@ if(isset($_GET['submitedit'])){
                                                                                                                                         ?>">
                 </div>
                 <input type="hidden" name="idKar" value="<?= $_GET['edit'] ?>">
+                <input type="hidden" name="namalama" value="<?= $_GET['nama'] ?>">
+
 
             </div>
             <button name="submitedit" type="submit" class="btn d-block mt-2 btn-primary mx-auto">Edit</button>
