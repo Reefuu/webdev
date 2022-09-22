@@ -72,7 +72,8 @@ if(isset($_POST['submitedit'])){
                 <th scope="col">Alamat</th>
                 <th scope="col">Kota</th>
                 <th scope="col">Kontak</th>
-                <th scope="col">Delete</th>
+                <th scope="col" class="text-center">Delete</th>
+                <th scope="col" class="text-center">Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -85,7 +86,8 @@ if(isset($_POST['submitedit'])){
                     <td>" . $boffice->alamat . "</td>
                     <td>" . $boffice->kota . "</td>
                     <td>" . $boffice->kontak . "</td>
-                    <td><a href='viewoffice.php?delete=" . $index . "&nama=" . $boffice->namakantor . "'><button class='btn btn-primary'>Delete</button></a></td>
+                    <td class='text-center'><a href='viewoffice.php?delete=" . $index . "&nama=" . $boffice->namakantor . "'><button class='btn btn-primary'>Delete</button></a></td>
+                    <td class='text-center'><a href='viewoffice.php?edit=" . $index . "&nama=" . $boffice->namakantor . "'><button class='btn btn-primary'>Edit</button></a></td>
                 </tr>
                 ";
             }
@@ -151,7 +153,7 @@ if(isset($_POST['submitedit'])){
                 <div class="form-group text-start w-50 d-inline-block">
                     <label for="formGroupExampleInput2" class="form-label">Kota</label>
                     <input name="kota" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Masukkan Kota" value="<?php
-                                                                                                                                            foreach (indexKar() as $index => $office) {
+                                                                                                                                            foreach (indexOffice() as $index => $office) {
                                                                                                                                                 if ($_GET['edit'] == $index) {
 
                                                                                                                                                     echo $office->kota;
@@ -162,7 +164,7 @@ if(isset($_POST['submitedit'])){
                 <div class="form-group text-start w-50 d-inline-block">
                     <label for="formGroupExampleInput2" class="form-label">Kontak Kantor</label>
                     <input name="kontak" type="number" class="form-control" id="formGroupExampleInput2" placeholder="Masukkan Kontak Kantor" value="<?php
-                                                                                                                                            foreach (indexKar() as $index => $office) {
+                                                                                                                                            foreach (indexOffice() as $index => $office) {
                                                                                                                                                 if ($_GET['edit'] == $index) {
 
                                                                                                                                                     echo $office->kontak;

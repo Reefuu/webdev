@@ -108,7 +108,7 @@ if (isset($_GET['delete'])) {
                     <td>" . $relasi->ralamat . "</td>
                     <td>" . $relasi->rkota . "</td>
                     <td>" . $relasi->rkontak . "</td>
-                    <td><a href='viewrelasi.php?delete=" . $index . "'><button class='btn btn-primary'>Delete</button></a></td>
+                    <td class='text-center'><a href='viewrelasi.php?delete=" . $index . "'><button class='btn btn-primary'>Delete</button></a></td>
                 </tr>
                 ";
             }
