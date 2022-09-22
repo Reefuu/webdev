@@ -65,7 +65,7 @@ if (isset($_GET['delete'])) {
                 <th scope="col">Nama</th>
                 <th scope="col">Jabatan</th>
                 <th scope="col">Usia</th>
-                <th scope="col">Delete</th>
+                <th scope="col" class="text-center">Delete</th>
             </tr>
         </thead>
         <tbody>
