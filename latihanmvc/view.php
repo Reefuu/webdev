@@ -17,12 +17,16 @@ if (isset($_POST['submit'])) {
 if (isset($_GET['delete'])) {
     deleteKar($_GET['delete']);
     $nama = $_GET['nama'];
-    foreach(indexRelasi() as $index => $relasi){
-        if($nama == $relasi->rnama){
+    foreach (indexRelasi() as $index => $relasi) {
+        if ($nama == $relasi->rnama) {
             deleteRelasi($index);
         }
     }
     header("Location: view.php");
+}
+if(isset($_GET['submitedit'])){
+    $id = $_POST['idKar'];
+    editKar($id);
 }
 ?>
 
@@ -38,7 +42,7 @@ if (isset($_GET['delete'])) {
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -66,6 +70,7 @@ if (isset($_GET['delete'])) {
                 <th scope="col">Jabatan</th>
                 <th scope="col">Usia</th>
                 <th scope="col" class="text-center">Delete</th>
+                <th scope="col" class="text-center">Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -77,7 +82,8 @@ if (isset($_GET['delete'])) {
                     <td>" . $karyawan->nama . "</td>
                     <td>" . $karyawan->jabatan . "</td>
                     <td>" . $karyawan->usia . "</td>
-                    <td class='text-center'><a href='view.php?delete=" . $index . "&nama=".$karyawan->nama."'><button class='btn btn-primary'>Delete</button></a></td>
+                    <td class='text-center'><a href='view.php?delete=" . $index . "&nama=" . $karyawan->nama . "'><button class='btn btn-primary'>Delete</button></a></td>
+                    <td class='text-center'><a href='view.php?edit=" . $index . "&nama=" . $karyawan->nama . "'><button class='btn btn-primary'>Edit</button></a></td>
                 </tr>
                 ";
             }
@@ -87,25 +93,75 @@ if (isset($_GET['delete'])) {
     <h1 class="text-center mt-2">
         List Karyawan
     </h1>
-    <form method="POST" action="view.php">
-        <div class="text-center">
-            <div class="form-group text-start w-50 d-inline-block">
-                <label for="formGroupExampleInput" class="form-label">Nama</label>
-                <input name="nama" type="text" class="form-control" id="formGroupExampleInput" placeholder="Masukkan Nama">
-            </div>
-            <div class="form-group text-start w-50 d-inline-block">
-                <label for="formGroupExampleInput2" class="form-label">Jabatan</label>
-                <input name="jabatan" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Masukkan Jabatan">
-            </div>
-            <div class="form-group text-start w-50 d-inline-block">
-                <label for="formGroupExampleInput2" class="form-label">Usia</label>
-                <input name="usia" type="number" class="form-control" id="formGroupExampleInput2" placeholder="Masukkan Usia">
-            </div>
+    <?php
+    if (!isset($_GET['edit'])) {
+    ?>
+        <form method="POST" action="view.php">
+            <div class="text-center">
+                <div class="form-group text-start w-50 d-inline-block">
+                    <label for="formGroupExampleInput" class="form-label">Nama</label>
+                    <input name="nama" type="text" class="form-control" id="formGroupExampleInput" placeholder="Masukkan Nama">
+                </div>
+                <div class="form-group text-start w-50 d-inline-block">
+                    <label for="formGroupExampleInput2" class="form-label">Jabatan</label>
+                    <input name="jabatan" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Masukkan Jabatan">
+                </div>
+                <div class="form-group text-start w-50 d-inline-block">
+                    <label for="formGroupExampleInput2" class="form-label">Usia</label>
+                    <input name="usia" type="number" class="form-control" id="formGroupExampleInput2" placeholder="Masukkan Usia">
+                </div>
 
-        </div>
-        <button name="submit" type="submit" class="btn d-block mt-2 btn-primary mx-auto">Submit</button>
+            </div>
+            <button name="submit" type="submit" class="btn d-block mt-2 btn-primary mx-auto">Submit</button>
 
-    </form>
+        </form>
+    <?php
+    } else {
+    ?>
+        <form method="POST" action="view.php">
+            <div class="text-center">
+                <div class="form-group text-start w-50 d-inline-block">
+                    <label for="formGroupExampleInput" class="form-label">Nama</label>
+                    <input name="nama" type="text" class="form-control" id="formGroupExampleInput" placeholder="Masukkan Nama" value="<?php
+                                                                                                                                        foreach (indexKar() as $index => $karyawan) {
+                                                                                                                                            if ($_GET['edit'] == $index) {
+
+                                                                                                                                                echo "$karyawan->nama";
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                        ?>">
+                </div>
+                <div class="form-group text-start w-50 d-inline-block">
+                    <label for="formGroupExampleInput2" class="form-label">Jabatan</label>
+                    <input name="jabatan" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Masukkan Jabatan" value="<?php
+                                                                                                                                        foreach (indexKar() as $index => $karyawan) {
+                                                                                                                                            if ($_GET['edit'] == $index) {
+
+                                                                                                                                                echo "$karyawan->jabatan";
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                        ?>">
+                </div>
+                <div class="form-group text-start w-50 d-inline-block">
+                    <label for="formGroupExampleInput2" class="form-label">Usia</label>
+                    <input name="usia" type="number" class="form-control" id="formGroupExampleInput2" placeholder="Masukkan Usia" value="<?php
+                                                                                                                                        foreach (indexKar() as $index => $karyawan) {
+                                                                                                                                            if ($_GET['edit'] == $index) {
+
+                                                                                                                                                echo $karyawan->usia;
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                        ?>">
+                </div>
+                <input type="hidden" name="idKar" value="<?= $_GET['edit'] ?>">
+
+            </div>
+            <button name="submitedit" type="submit" class="btn d-block mt-2 btn-primary mx-auto">Edit</button>
+
+        </form>
+    <?php
+    }
+    ?>
 </body>
 
 </html>

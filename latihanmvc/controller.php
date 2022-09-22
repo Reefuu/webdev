@@ -9,24 +9,30 @@ if (!isset($_SESSION['listkaryawan'])) {
 
 function insertKar()
 {
-        $karyawan = new karyawan();
+    $karyawan = new karyawan();
 
-        $karyawan->nama = $_POST['nama'];
-        $karyawan->jabatan = $_POST['jabatan'];
-        $karyawan->usia = $_POST['usia'];
+    $karyawan->nama = $_POST['nama'];
+    $karyawan->jabatan = $_POST['jabatan'];
+    $karyawan->usia = $_POST['usia'];
 
-        array_push($_SESSION['listkaryawan'], $karyawan);
-    }
+    array_push($_SESSION['listkaryawan'], $karyawan);
+}
 
 
 function indexKar()
 {
-        return $_SESSION['listkaryawan'];
-    
+    return $_SESSION['listkaryawan'];
 }
 
 function deleteKar($id)
 {
-        unset($_SESSION['listkaryawan'][$id]);
-    
+    unset($_SESSION['listkaryawan'][$id]);
+}
+function editKar($id)
+{
+    $karyawan = new karyawan();
+    $karyawan->nama = $_POST['nama'];
+    $karyawan->jabatan = $_POST['jabatan'];
+    $karyawan->usia = $_POST['usia'];
+    $_SESSION['listkaryawan'][$id] = $karyawan;
 }
