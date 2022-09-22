@@ -77,7 +77,7 @@ if (isset($_GET['delete'])) {
                     <td>" . $karyawan->nama . "</td>
                     <td>" . $karyawan->jabatan . "</td>
                     <td>" . $karyawan->usia . "</td>
-                    <td><a href='view.php?delete=" . $index . "&nama=".$karyawan->nama."'><button class='btn btn-primary'>Delete</button></a></td>
+                    <td class='text-center'><a href='view.php?delete=" . $index . "&nama=".$karyawan->nama."'><button class='btn btn-primary'>Delete</button></a></td>
                 </tr>
                 ";
             }
