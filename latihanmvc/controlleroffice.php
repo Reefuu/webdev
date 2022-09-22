@@ -24,4 +24,14 @@ function deleteOffice($id){
     unset($_SESSION['listoffice'][$id]);
 
 }
+function editOffice($id)
+{
+    $office = new office();
+
+    $office->namakantor = $_POST['namakantor'];
+    $office->alamat = $_POST['alamat'];
+    $office->kota = $_POST['kota'];
+    $office->kontak = $_POST['kontak'];
+    $_SESSION['listoffice'][$id] = $office;
+}
 ?>

@@ -36,4 +36,14 @@ function editRelasiKar($namalama){
         }
     }
 }
+function editRelasiKantor($namalama){
+    foreach(indexRelasi() as $index => $relasi){
+        if($namalama == $relasi->rnamakantor){
+            $relasi->rnamakantor = $_POST['namakantor'];
+            $relasi->ralamat = $_POST['alamat'];
+            $relasi->rkota = $_POST['kota'];
+            $relasi->rkontak = $_POST['kontak'];
+        }
+    }
+}
 ?>
