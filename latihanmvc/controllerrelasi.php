@@ -31,8 +31,8 @@ function editRelasiKar($namalama){
     foreach(indexRelasi() as $index => $relasi){
         if($namalama == $relasi->rnama){
             $relasi->rnama = $_POST['nama'];
-            $relasi->rnama = $_POST['jabatan'];
-            $relasi->rnama = $_POST['usia'];
+            $relasi->rjabatan = $_POST['jabatan'];
+            $relasi->rusia = $_POST['usia'];
         }
     }
 }
