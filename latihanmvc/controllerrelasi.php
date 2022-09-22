@@ -29,10 +29,10 @@ function deleteRelasi($id){
 }
 function editRelasiKar($namalama){
     foreach(indexRelasi() as $index => $relasi){
-        if($namalama == $relasi->nama){
-            $relasi->nama = $_POST['nama'];
-            $relasi->nama = $_POST['jabatan'];
-            $relasi->nama = $_POST['usia'];
+        if($namalama == $relasi->rnama){
+            $relasi->rnama = $_POST['nama'];
+            $relasi->rnama = $_POST['jabatan'];
+            $relasi->rnama = $_POST['usia'];
         }
     }
 }
