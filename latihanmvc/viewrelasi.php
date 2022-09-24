@@ -5,33 +5,52 @@ if (isset($_POST['submit'])) {
     $indexkantor = $_POST['indexkan'];
     $dupe = 0;
 
-    foreach (indexKar() as $index => $karyawan) {
-        if ($index == $indexkaryawan) {
-            $nama = $karyawan->nama;
-            $jabatan = $karyawan->jabatan;
-            $usia = $karyawan->usia;
+    if (!isset($_POST['editRelasi'])) {
+        foreach (indexKar() as $index => $karyawan) {
+            if ($index == $indexkaryawan) {
+                $nama = $karyawan->nama;
+                $jabatan = $karyawan->jabatan;
+                $usia = $karyawan->usia;
+            }
         }
-    }
 
 
 
-    foreach (indexOffice() as $index => $office) {
-        if ($index == $indexkantor) {
-            $nkantor = $office->namakantor;
-            $alamat = $office->alamat;
-            $kota = $office->kota;
-            $kontak = $office->kontak;
+        foreach (indexOffice() as $index => $office) {
+            if ($index == $indexkantor) {
+                $nkantor = $office->namakantor;
+                $alamat = $office->alamat;
+                $kota = $office->kota;
+                $kontak = $office->kontak;
+            }
         }
-    }
-    foreach (indexRelasi() as $index => $relasi) {
-        if ($nama == $relasi->rnama) {
-            $dupe++;
+        foreach (indexRelasi() as $index => $relasi) {
+            if ($nama == $relasi->rnama) {
+                $dupe++;
+            }
         }
-    }
-    if ($dupe == 0) {
-        header("Location: viewrelasi.php?nama=$nama&jabatan=$jabatan&usia=$usia&namakantor=$nkantor&alamat=$alamat&kota=$kota&kontak=$kontak");
+        if ($dupe == 0) {
+            header("Location: viewrelasi.php?nama=$nama&jabatan=$jabatan&usia=$usia&namakantor=$nkantor&alamat=$alamat&kota=$kota&kontak=$kontak");
+        } else {
+            echo '<script>alert("Karyawan ' . $nama . ' telah memiliki kantor")</script>';
+        }
     } else {
-        echo '<script>alert("Karyawan ' . $nama . ' telah memiliki kantor")</script>';
+        foreach (indexKar() as $index => $karyawan) {
+            if ($index == $indexkaryawan) {
+                $nama = $karyawan->nama;
+                $jabatan = $karyawan->jabatan;
+                $usia = $karyawan->usia;
+            }
+        }
+        foreach (indexOffice() as $index => $office) {
+            if ($index == $indexkantor) {
+                $nkantor = $office->namakantor;
+                $alamat = $office->alamat;
+                $kota = $office->kota;
+                $kontak = $office->kontak;
+            }
+        }
+        editRelasi($nama, $jabatan, $usia, $nkantor, $alamat, $kota, $kontak);
     }
 }
 
@@ -84,6 +103,7 @@ if (isset($_GET['delete'])) {
                 <th scope="col" colspan="3" class="text-center">Karyawan</th>
                 <th scope="col" colspan="4" class="text-center">Kantor</th>
                 <th scope="col" rowspan="2" class="text-center align-middle">Delete</th>
+                <th scope="col" rowspan="2" class="text-center align-middle">Edit</th>
             </tr>
             <tr>
                 <th scope="col">Nama</th>
@@ -109,6 +129,7 @@ if (isset($_GET['delete'])) {
                     <td>" . $relasi->rkota . "</td>
                     <td>" . $relasi->rkontak . "</td>
                     <td class='text-center'><a href='viewrelasi.php?delete=" . $index . "'><button class='btn btn-primary'>Delete</button></a></td>
+                    <td class='text-center'><a href='viewrelasi.php?edit=" . $relasi->rnama . "&ekantor=" . $relasi->rnamakantor . "'><button class='btn btn-primary'>Edit</button></a></td>
                 </tr>
                 ";
             }
@@ -116,8 +137,17 @@ if (isset($_GET['delete'])) {
         </tbody>
     </table>
     <h1 class="text-center mt-2">
-        List Karyawan Kantor
+        <?= (isset($_GET['edit'])) ? 'Edit' : 'List' ?>
+        Karyawan Kantor
     </h1>
+    <?php
+    if (isset($_GET['edit'])) {
+    ?>
+        <div class="d-flex justify-content-center"><a href="viewrelasi.php" class="btn btn-danger" tabindex="-1" role="button">CANCEL</a>
+        </div>
+    <?php
+    }
+    ?>
     <form method="POST" action="viewrelasi.php">
         <div class="text-center">
             <div class="form-group text-start w-50 d-inline-block">
@@ -125,9 +155,18 @@ if (isset($_GET['delete'])) {
                 <select class="form-select" name="indexkar">
                     <?php
                     foreach (indexKar() as $index => $karyawan) {
+                        if (!isset($_GET['edit'])) {
                     ?>
-                        <option value="<?= $index ?>"><?= $karyawan->nama ?></option>
-                    <?php } ?>
+                            <option value="<?= $index ?>"><?= $karyawan->nama ?></option>
+                            <?php } else {
+                            if ($karyawan->nama == $_GET['edit']) {
+                            ?>
+                                <option value="<?= $index ?>"><?= $karyawan->nama ?></option>
+                                <input type="hidden" name="editRelasi" value="true">
+                    <?php
+                            }
+                        }
+                    } ?>
                 </select>
             </div>
             <div class="form-group text-start w-50 d-inline-block">
@@ -136,7 +175,9 @@ if (isset($_GET['delete'])) {
                     <?php
                     foreach (indexOffice() as $index => $office) {
                     ?>
-                        <option value="<?= $index ?>"><?= $office->namakantor ?></option>
+                        <option value="<?= $index ?>" <?php if (isset($_GET['ekantor'])) {
+                                                            echo ($office->namakantor == $_GET['ekantor']) ? 'selected' : '';
+                                                        } ?>><?= $office->namakantor ?></option>
                     <?php } ?>
                 </select>
             </div>

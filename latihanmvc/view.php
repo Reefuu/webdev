@@ -62,8 +62,9 @@ if(isset($_POST['submitedit'])){
         </div>
     </nav>
     <h1 class="text-center">
-        List Karyawan
+        Karyawan
     </h1>
+   
     <table class="table table-dark mt-2 w-50 mx-auto">
         <thead>
             <tr>
@@ -93,8 +94,17 @@ if(isset($_POST['submitedit'])){
         </tbody>
     </table>
     <h1 class="text-center mt-2">
-        List Karyawan
+    <?= (isset($_GET['edit'])) ? 'Edit':'List' ?>
+         Karyawan
     </h1>
+    <?php
+    if (isset($_GET['edit'])) {
+    ?>
+        <div class="d-flex justify-content-center"><a href="view.php" class="btn btn-danger" tabindex="-1" role="button">CANCEL</a>
+        </div>
+    <?php
+    }
+    ?>
     <?php
     if (!isset($_GET['edit'])) {
     ?>

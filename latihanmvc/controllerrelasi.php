@@ -46,4 +46,17 @@ function editRelasiKantor($namalama){
         }
     }
 }
+function editRelasi($nama, $jabatan, $usia, $nkantor, $alamat, $kota, $kontak){
+    foreach(indexRelasi() as $index => $relasi){
+        if($nama == $relasi->rnama){
+            $relasi->rnama =$nama;
+            $relasi->rjabatan = $jabatan;
+            $relasi->rusia = $usia;
+            $relasi->rnamakantor = $nkantor;
+            $relasi->ralamat = $alamat;
+            $relasi->rkota = $kota;
+            $relasi->rkontak = $kontak;
+        }
+    }
+}
 ?>

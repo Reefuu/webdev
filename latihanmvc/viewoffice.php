@@ -62,8 +62,9 @@ if(isset($_POST['submitedit'])){
         </div>
     </nav>
     <h1 class="text-center">
-        List Kantor
+        Kantor
     </h1>
+    
     <table class="table table-dark mt-2 w-50 mx-auto">
         <thead>
             <tr>
@@ -95,8 +96,18 @@ if(isset($_POST['submitedit'])){
         </tbody>
     </table>
     <h1 class="text-center mt-2">
-        List Kantor
+    <?= (isset($_GET['edit'])) ? 'Edit':'List' ?>
+
+         Kantor
     </h1>
+    <?php
+    if (isset($_GET['edit'])) {
+    ?>
+        <div class="d-flex justify-content-center"><a href="viewoffice.php" class="btn btn-danger" tabindex="-1" role="button">CANCEL</a>
+        </div>
+    <?php
+    }
+    ?>
     <?php
     if (!isset($_GET['edit'])) {
     ?>
